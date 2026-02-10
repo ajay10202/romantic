@@ -1,22 +1,27 @@
+/* Import Google Fonts for a romantic look */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
 
+/* Main Background Setup */
 body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    /* Soft Romantic Gradient */
     background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: 'Poppins', sans-serif;
-    overflow: hidden;
+    overflow: hidden; /* Prevents scrollbars */
     text-align: center;
 }
 
+/* The Start Button Styling */
 #startBtn {
     padding: 15px 40px;
     font-size: 1.5rem;
+    font-weight: 600;
     background-color: #ff3366;
     color: white;
     border: none;
@@ -24,6 +29,7 @@ body {
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
     transition: transform 0.3s;
+    /* Heartbeat Animation */
     animation: pulse 1.5s infinite;
     z-index: 10;
 }
@@ -32,6 +38,7 @@ body {
     transform: scale(1.1);
 }
 
+/* The Content Container (Hidden Initially) */
 .content {
     display: none; /* Hidden by default */
     flex-direction: column;
@@ -40,27 +47,28 @@ body {
     animation: fadeIn 2s ease;
 }
 
+/* Text Styling */
 h1 {
     font-family: 'Dancing Script', cursive;
     color: #d63384;
-    font-size: 3rem;
-    margin: 10px 0;
+    font-size: 3.5rem;
+    margin: 15px 0;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-.love-letter {
-    color: #555;
+.message {
     font-size: 1.2rem;
-    margin-top: 10px;
-    line-height: 1.6;
+    color: #555;
+    line-height: 1.5;
 }
 
+/* GIF Image Container */
 .gif-container {
     width: 280px;
     height: 280px;
-    border-radius: 15px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     border: 5px solid white;
 }
 
@@ -70,25 +78,32 @@ img {
     object-fit: cover;
 }
 
+/* Floating Hearts Styling */
 .heart {
     position: absolute;
     color: #ff3366;
-    animation: float 4s linear infinite;
+    animation: float 4s linear infinite; /* Floats up */
     opacity: 0;
     font-size: 20px;
+    pointer-events: none; /* Allows clicking through hearts */
 }
 
+/* --- Animations --- */
+
+/* Button Pulse */
 @keyframes pulse {
     0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.7); }
     70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 51, 102, 0); }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 51, 102, 0); }
 }
 
+/* Fade In Effect */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Floating Hearts Movement */
 @keyframes float {
     0% { transform: translateY(100vh) scale(0); opacity: 1; }
     100% { transform: translateY(-10vh) scale(1); opacity: 0; }
