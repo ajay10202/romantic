@@ -1,110 +1,50 @@
-/* Import Google Fonts for a romantic look */
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
-
-/* Main Background Setup */
-body {
+body, html {
     margin: 0;
     padding: 0;
     height: 100vh;
-    /* Soft Romantic Gradient */
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden; /* Prevents scrollbars */
-    text-align: center;
+    background-color: #1a1a1a;
 }
 
-/* The Start Button Styling */
-#startBtn {
-    padding: 15px 40px;
-    font-size: 1.5rem;
-    font-weight: 600;
-    background-color: #ff3366;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
-    transition: transform 0.3s;
-    /* Heartbeat Animation */
-    animation: pulse 1.5s infinite;
-    z-index: 10;
-}
-
-#startBtn:hover {
-    transform: scale(1.1);
-}
-
-/* The Content Container (Hidden Initially) */
-.content {
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    align-items: center;
-    z-index: 10;
-    animation: fadeIn 2s ease;
-}
-
-/* Text Styling */
-h1 {
-    font-family: 'Dancing Script', cursive;
-    color: #d63384;
-    font-size: 3.5rem;
-    margin: 15px 0;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-.message {
-    font-size: 1.2rem;
-    color: #555;
-    line-height: 1.5;
-}
-
-/* GIF Image Container */
-.gif-container {
-    width: 280px;
-    height: 280px;
-    border-radius: 20px;
+.reveal-container {
+    position: relative;
+    width: 90vw;
+    max-width: 800px;
+    aspect-ratio: 16 / 10;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    border: 5px solid white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    cursor: crosshair; /* Changes cursor for better UX */
+    touch-action: none; /* Prevents mobile scrolling while interacting */
 }
 
-img {
+.bottom-image, .top-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none; /* Ensures JS tracks the container, not the images */
 }
 
-/* Floating Hearts Styling */
-.heart {
-    position: absolute;
-    color: #ff3366;
-    animation: float 4s linear infinite; /* Floats up */
-    opacity: 0;
-    font-size: 20px;
-    pointer-events: none; /* Allows clicking through hearts */
-}
+.top-image {
+    /* Default position for the 'hole' is way off screen */
+    --x: -1000px; 
+    --y: -1000px;
+    --size: 120px; /* Size of the eraser circle */
 
-/* --- Animations --- */
-
-/* Button Pulse */
-@keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.7); }
-    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 51, 102, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 51, 102, 0); }
-}
-
-/* Fade In Effect */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Floating Hearts Movement */
-@keyframes float {
-    0% { transform: translateY(100vh) scale(0); opacity: 1; }
-    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    /* Creates a transparent circle at the X/Y coordinates */
+    mask-image: radial-gradient(
+        circle var(--size) at var(--x) var(--y),
+        transparent 95%,
+        black 100%
+    );
+    -webkit-mask-image: radial-gradient(
+        circle var(--size) at var(--x) var(--y),
+        transparent 95%,
+        black 100%
+    );
 }
