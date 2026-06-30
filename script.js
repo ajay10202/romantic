@@ -1,37 +1,57 @@
-const container = document.querySelector('.reveal-container');
-const topImage = document.querySelector('.top-image');
+// Modal Logic
+const modalOverlay = document.getElementById('modalOverlay');
+const openModalBtn = document.getElementById('openModalBtn');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const loginContainer = document.getElementById('loginContainer');
 
-// Calculates coordinates and updates the CSS variables
-const updateEraserPosition = (e) => {
-    // Get the exact dimensions and position of the container
-    const rect = container.getBoundingClientRect();
-    
-    // Determine if this is a touch event or a mouse event
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-    // Calculate X and Y relative to the container itself
-    const xPos = clientX - rect.left;
-    const yPos = clientY - rect.top;
-
-    // Push the coordinates to the CSS
-    topImage.style.setProperty('--x', `${xPos}px`);
-    topImage.style.setProperty('--y', `${yPos}px`);
-};
-
-// Resets the image back to solid when interaction ends
-const resetImage = () => {
-    topImage.style.setProperty('--x', `-1000px`);
-    topImage.style.setProperty('--y', `-1000px`);
-};
-
-// --- Desktop Mouse Events ---
-container.addEventListener('mousemove', updateEraserPosition);
-container.addEventListener('mouseleave', resetImage);
-
-// --- Mobile Touch Events ---
-container.addEventListener('touchmove', (e) => {
-    e.preventDefault(); // Extra safety to prevent screen dragging
-    updateEraserPosition(e);
+// Open Modal
+openModalBtn.addEventListener('click', () => {
+    modalOverlay.classList.add('active');
 });
-container.addEventListener('touchend', resetImage);
+
+// Close Modal (via X button)
+closeModalBtn.addEventListener('click', () => {
+    modalOverlay.classList.remove('active');
+});
+
+// Close Modal (clicking outside the card)
+modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('active');
+    }
+});
+
+// Interactive Password Toggle
+const passwordInput = document.getElementById('password');
+const togglePassword = document.getElementById('togglePassword');
+
+togglePassword.addEventListener('click', function () {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    this.textContent = type === 'password' ? 'Show' : 'Hide';
+});
+
+// Dynamic Form Submission (Simulated)
+const loginForm = document.getElementById('loginForm');
+const loginBtn = document.getElementById('loginBtn');
+
+loginForm.addEventListener('submit', function(e) {
+    e.preventDefault(); 
+    
+    loginBtn.classList.add('loading');
+    loginBtn.textContent = 'Authenticating...';
+
+    setTimeout(() => {
+        loginBtn.classList.remove('loading');
+        loginBtn.textContent = 'Success!';
+        loginBtn.style.background = '#28a745'; 
+
+        setTimeout(() => {
+            loginBtn.textContent = 'Login';
+            loginBtn.style.background = '';
+            loginForm.reset();
+            // Automatically close the modal on success
+            modalOverlay.classList.remove('active');
+        }, 1500);
+    }, 1500);
+});
